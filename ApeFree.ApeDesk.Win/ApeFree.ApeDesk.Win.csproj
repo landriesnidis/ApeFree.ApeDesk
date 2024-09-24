@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Costura.Fody" Version="5.7.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ApeFree.ApeDialogs\ApeFree.ApeDialogs\ApeFree.ApeDialogs.csproj" />
+		<ProjectReference Include="..\..\ApeFree.ApeForms\ApeFree.ApeForms.Core\ApeFree.ApeForms.Core.csproj" />
+		<ProjectReference Include="..\..\ApeFree.ApeForms\ApeFree.ApeForms.Forms\ApeFree.ApeForms.Forms.csproj" />
+		<ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc.Mqtt\ApeFree.ApeRpc.Mqtt.csproj" />
+		<ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc\ApeFree.ApeRpc.csproj" />
+		<ProjectReference Include="..\..\ApeFree.Cake2D\ApeFree.Cake2D\ApeFree.Cake2D.csproj" />
+		<ProjectReference Include="..\..\ApeFree.Protocols\ApeFree.Protocols.Json\ApeFree.Protocols.Json.csproj" />
+		<ProjectReference Include="..\..\ApeFree.Reflection\ApeFree.Reflection.Rpc\ApeFree.Reflection.Rpc.csproj" />
+		<ProjectReference Include="..\..\STTech.CodePlus\STTech.CodePlus\STTech.CodePlus.csproj" />
+		<ProjectReference Include="..\ApeFree.ApeDesk.Core\ApeFree.ApeDesk.Core.csproj" />
+	</ItemGroup>
+
+</Project>
