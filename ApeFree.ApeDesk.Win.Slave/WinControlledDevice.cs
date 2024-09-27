@@ -180,6 +180,16 @@ namespace ApeFree.ApeDesk.Win.Slave
 
     public partial class WinControlledDevice
     {
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
+
+        public bool DirectoryExists(string path)
+        {
+            return Directory.Exists(path);
+        }
+
         public void SaveFile(string path, byte[] bytes)
         {
             File.WriteAllBytes(path, bytes);
@@ -240,6 +250,8 @@ namespace ApeFree.ApeDesk.Win.Slave
 
         public FileCatalogItem[] GetFileCatalog(string folderPath)
         {
+            Console.WriteLine($"客户端 {RpcTerminal.GetRemoteCallingTerminalId()} 正在请求目录：{folderPath}");
+
             DirectoryInfo directory = new DirectoryInfo(folderPath);
             var dirItems = directory.GetDirectories().Select(x => new FileCatalogItem() { Name = x.Name, IsDirectory = true }).ToList();
             var fileItems = directory.GetFiles().Select(x => new FileCatalogItem() { CreationTime = x.CreationTime, FileSize = x.Length, IsDirectory = false, Name = x.Name });
@@ -248,19 +260,70 @@ namespace ApeFree.ApeDesk.Win.Slave
             return dirItems.ToArray();
         }
 
-        public void FileDelete(string path)
+        public void DeleteFile(string path)
         {
             File.Delete(path);
         }
 
-        public void FileCopy(string srcPath, string dstPath, bool overwrite)
+        public void CopyFile(string srcPath, string dstPath, bool overwrite)
         {
             File.Copy(srcPath, dstPath, overwrite);
         }
 
-        public void FileMove(string srcPath, string dstPath, bool overwrite)
+        public void MoveFile(string srcPath, string dstPath, bool overwrite)
         {
             File.Copy(srcPath, dstPath, overwrite);
+        }
+
+        public string CopyFolder(string sourceFolder, string destinationFolder)
+        {
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                // 用 xcopy 命令来拷贝文件夹。
+                //      /E 表示复制子目录，包括空的子目录；
+                //      /H 表示也复制隐藏和系统文件；
+                //      /K 表示复制属性；
+                //      /Y 表示在覆盖现有文件时不提示
+                Arguments = $"/C xcopy \"{sourceFolder}\" \"{destinationFolder}\" /E /H /K /Y",
+                UseShellExecute = false,
+                //RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            process.StartInfo = startInfo;
+            process.Start();
+
+            //string output = process.StandardOutput.ReadToEnd();
+            string errorMessage = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            return errorMessage;
+        }
+
+        public string MoveFolder(string sourceFolder, string destinationFolder)
+        {
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/C move \"{sourceFolder}\" \"{destinationFolder}\" /Y",
+                UseShellExecute = false,
+                //RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            process.StartInfo = startInfo;
+            process.Start();
+
+            //string output = process.StandardOutput.ReadToEnd();
+            string errorMessage = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            return errorMessage;
         }
 
         public byte[] GetFileMD5(string path)
