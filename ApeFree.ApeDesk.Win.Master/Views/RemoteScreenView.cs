@@ -3,6 +3,7 @@ using ApeFree.ApeRpc;
 using STTech.CodePlus.Components;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,12 +20,19 @@ namespace ApeFree.ApeDesk.Win.Master
         public IScreenSynchronizer ScreenSynchronizer { get; private set; }
         public float ScreenScaleFactor { get; private set; }
 
+        /// <summary>
+        /// 屏幕同步使能
+        /// </summary>
+        [Description("屏幕同步使能")]
+        public bool EnableScreenSyncing { get; set; } = true;
+
         int frameIndex = 0;
         TaskQueue<Bitmap> screenUpdateQueue;
         private static Point EmptyMousePoint = new Point(-1, -1);
 
         public RemoteScreenView()
         {
+            SizeMode = PictureBoxSizeMode.Zoom;
             screenUpdateQueue = new FloaterTaskQueue<Bitmap>(x =>
             {
                 this.Invoke(new Action(() =>
@@ -70,6 +78,11 @@ namespace ApeFree.ApeDesk.Win.Master
 
         private void RemoteScreenCaptrueRefresh()
         {
+            if (!EnableScreenSyncing)
+            {
+                return;
+            }
+
             if (!Visible)
             {
                 return;
