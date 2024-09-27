@@ -10,6 +10,13 @@ namespace ApeFree.ApeDesk.Core
     public interface IDriveBrowser : ApeRpc.IService
     {
         /// <summary>
+        /// 文件是否存在
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        bool FileExists(string path);
+
+        /// <summary>
         /// 保存文件
         /// </summary>
         /// <param name="savePath"></param>
@@ -43,7 +50,7 @@ namespace ApeFree.ApeDesk.Core
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        void FileDelete(string path);
+        void DeleteFile(string path);
 
         /// <summary>
         /// 文件拷贝
@@ -51,7 +58,7 @@ namespace ApeFree.ApeDesk.Core
         /// <param name="srcPath"></param>
         /// <param name="dstPath"></param>
         /// <returns></returns>
-        void FileCopy(string srcPath, string dstPath, bool overwrite);
+        void CopyFile(string srcPath, string dstPath, bool overwrite);
 
         /// <summary>
         /// 文件移动
@@ -59,7 +66,23 @@ namespace ApeFree.ApeDesk.Core
         /// <param name="srcPath"></param>
         /// <param name="dstPath"></param>
         /// <returns></returns>
-        void FileMove(string srcPath, string dstPath, bool overwrite);
+        void MoveFile(string srcPath, string dstPath, bool overwrite);
+
+        /// <summary>
+        /// 文件夹拷贝
+        /// </summary>
+        /// <param name="sourceFolder">源文件夹路径</param>
+        /// <param name="destinationFolder">目标文件夹路径</param>
+        /// <returns>拷贝时错误信息</returns>
+        string CopyFolder(string sourceFolder, string destinationFolder);
+
+        /// <summary>
+        /// 文件夹移动
+        /// </summary>
+        /// <param name="sourceFolder">源文件夹路径</param>
+        /// <param name="destinationFolder">目标文件夹路径</param>
+        /// <returns>移动时错误信息</returns>
+        string MoveFolder(string sourceFolder, string destinationFolder);
 
         /// <summary>
         /// 获取文件的MD5值
@@ -75,6 +98,7 @@ namespace ApeFree.ApeDesk.Core
         /// <returns></returns>
         FileVersionInfo GetVersionInfo(string path);
     }
+
     /// <summary>
     /// 表示文件目录项的类
     /// </summary>
