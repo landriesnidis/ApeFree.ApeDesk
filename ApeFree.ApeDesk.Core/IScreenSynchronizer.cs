@@ -8,7 +8,7 @@ namespace ApeFree.ApeDesk.Core
     /// <summary>
     /// 共享屏幕
     /// </summary>
-    public interface IScreenSynchronizer
+    public interface IScreenSynchronizer : ApeRpc.IService
     {
         /// <summary>
         /// 屏幕更新事件
