@@ -16,7 +16,7 @@ namespace ApeFree.ApeDesk.Win.Master
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SubForm());
+            Application.Run(new MasterForm());
         }
     }
 }

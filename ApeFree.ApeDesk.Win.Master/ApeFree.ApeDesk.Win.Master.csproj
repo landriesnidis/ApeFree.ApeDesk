@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApeFree.ApeDialogs, Version=0.10.17.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ApeFree.ApeDialogs.0.10.17-beta0922\lib\net45\ApeFree.ApeDialogs.dll</HintPath>
@@ -76,19 +79,19 @@
     <Compile Include="Views\RemoteScreenView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SubForm.cs">
+    <Compile Include="MasterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm.Designer.cs">
-      <DependentUpon>SubForm.cs</DependentUpon>
+    <Compile Include="MasterForm.Designer.cs">
+      <DependentUpon>MasterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Views\DriveBrowserView.resx">
       <DependentUpon>DriveBrowserView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm.resx">
-      <DependentUpon>SubForm.cs</DependentUpon>
+    <EmbeddedResource Include="MasterForm.resx">
+      <DependentUpon>MasterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

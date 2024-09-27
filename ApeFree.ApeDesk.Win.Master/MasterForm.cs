@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace ApeFree.ApeDesk.Win.Master
 {
-    public partial class SubForm : Form
+    public partial class MasterForm : Form
     {
         private TerminalInfo hostInfo = new TerminalInfo();
         public RpcTerminal Terminal { get; private set; }
@@ -27,7 +27,7 @@ namespace ApeFree.ApeDesk.Win.Master
         private IControlledDevice RemoteDevice { get; set; }
 
 
-        public SubForm()
+        public MasterForm()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;

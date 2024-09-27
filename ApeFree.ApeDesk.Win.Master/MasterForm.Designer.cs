@@ -1,6 +1,6 @@
 ﻿namespace ApeFree.ApeDesk.Win.Master
 {
-    partial class SubForm
+    partial class MasterForm
     {
         /// <summary>
         /// 必需的设计器变量。
