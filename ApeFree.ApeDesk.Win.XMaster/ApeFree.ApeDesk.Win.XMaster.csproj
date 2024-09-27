@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76D9AAF5-5329-4A6D-91F2-00D575B1D903}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ApeFree.ApeDesk.Win.XMaster</RootNamespace>
+    <AssemblyName>ApeFree.ApeDesk.Win.XMaster</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FileDistribution\FileDistributionItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\FileDistribution\FileDistributionItem.Designer.cs">
+      <DependentUpon>FileDistributionItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FileDistribution\FileDistributionPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\FileDistribution\FileDistributionPage.Designer.cs">
+      <DependentUpon>FileDistributionPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\IPage.cs" />
+    <Compile Include="Pages\ProcessGuard\ProcessGuardItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\ProcessGuard\ProcessGuardItem.Designer.cs">
+      <DependentUpon>ProcessGuardItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProcessGuard\ProcessGuardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\ProcessGuard\ProcessGuardPage.Designer.cs">
+      <DependentUpon>ProcessGuardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RemoteScreen\RemoteScreenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\RemoteScreen\RemoteScreenControl.Designer.cs">
+      <DependentUpon>RemoteScreenControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RemoteScreen\RemoteScreenPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\RemoteScreen\RemoteScreenPage.Designer.cs">
+      <DependentUpon>RemoteScreenPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RemoteService\RemoteServicePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\RemoteService\RemoteServicePage.Designer.cs">
+      <DependentUpon>RemoteServicePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\FileDistribution\FileDistributionItem.resx">
+      <DependentUpon>FileDistributionItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\FileDistribution\FileDistributionPage.resx">
+      <DependentUpon>FileDistributionPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ProcessGuard\ProcessGuardItem.resx">
+      <DependentUpon>ProcessGuardItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ProcessGuard\ProcessGuardPage.resx">
+      <DependentUpon>ProcessGuardPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\RemoteScreen\RemoteScreenControl.resx">
+      <DependentUpon>RemoteScreenControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\RemoteScreen\RemoteScreenPage.resx">
+      <DependentUpon>RemoteScreenPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\RemoteService\RemoteServicePage.resx">
+      <DependentUpon>RemoteServicePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApeFree.ApeDialogs\ApeFree.ApeDialogs\ApeFree.ApeDialogs.csproj">
+      <Project>{799e05d1-bc8b-4495-926b-11dfa4c57f4e}</Project>
+      <Name>ApeFree.ApeDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.ApeForms\ApeFree.ApeForms.Core\ApeFree.ApeForms.Core.csproj">
+      <Project>{29e9fe9e-c03a-4af6-8e9a-7a214be48c1a}</Project>
+      <Name>ApeFree.ApeForms.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.ApeForms\ApeFree.ApeForms.Forms\ApeFree.ApeForms.Forms.csproj">
+      <Project>{b59f294f-e074-47ab-a4ec-ca307b0aaded}</Project>
+      <Name>ApeFree.ApeForms.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc.Mqtt\ApeFree.ApeRpc.Mqtt.csproj">
+      <Project>{bb923a7b-ce85-4229-9a71-723d48b19f38}</Project>
+      <Name>ApeFree.ApeRpc.Mqtt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc\ApeFree.ApeRpc.csproj">
+      <Project>{dc36964a-4762-44fc-a858-68ff0249e415}</Project>
+      <Name>ApeFree.ApeRpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.Cake2D\ApeFree.Cake2D\ApeFree.Cake2D.csproj">
+      <Project>{066a98ca-3054-4e93-8b0f-03599973f077}</Project>
+      <Name>ApeFree.Cake2D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.Protocols\ApeFree.Protocols.Json\ApeFree.Protocols.Json.csproj">
+      <Project>{f8be276e-945d-4abf-8570-7524467d07b7}</Project>
+      <Name>ApeFree.Protocols.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.Reflection\ApeFree.Reflection.Rpc\ApeFree.Reflection.Rpc.csproj">
+      <Project>{ce3029fa-c886-4402-9177-d50368c1f4e4}</Project>
+      <Name>ApeFree.Reflection.Rpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\STTech.CodePlus\STTech.CodePlus\STTech.CodePlus.csproj">
+      <Project>{c2281a1a-940c-4e2d-bb9b-a1a6465d1ae2}</Project>
+      <Name>STTech.CodePlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApeFree.ApeDesk.Core\ApeFree.ApeDesk.Core.csproj">
+      <Project>{3f922b67-b74d-45cf-95d4-28c155379f64}</Project>
+      <Name>ApeFree.ApeDesk.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApeFree.ApeDesk.Win.Master\ApeFree.ApeDesk.Win.Master.csproj">
+      <Project>{a08b49d6-c3f0-4ce0-b194-5898f78b4c9a}</Project>
+      <Name>ApeFree.ApeDesk.Win.Master</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
