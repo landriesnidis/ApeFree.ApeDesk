@@ -43,7 +43,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.picScreen = new ApeFree.ApeDesk.Win.Master.RemoteScreenView();
-            this.folderBrowserView = new ApeFree.ApeDesk.Win.Master.DriveBrowserView();
+            this.folderBrowserView = new ApeFree.ApeDesk.Win.Master.RemoteDriveManagementView();
             this.processManagerView = new ApeFree.ApeDesk.Win.Master.Views.ProcessManagerView();
             this.gbNetwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
@@ -291,7 +291,7 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private DriveBrowserView folderBrowserView;
+        private RemoteDriveManagementView folderBrowserView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labMouseLocation;
         private System.Windows.Forms.TabPage tabPage3;

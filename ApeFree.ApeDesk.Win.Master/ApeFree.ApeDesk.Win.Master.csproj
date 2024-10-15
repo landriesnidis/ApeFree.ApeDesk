@@ -36,21 +36,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApeFree.ApeDialogs, Version=0.10.17.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ApeFree.ApeDialogs.0.10.17-beta0922\lib\net45\ApeFree.ApeDialogs.dll</HintPath>
-    </Reference>
-    <Reference Include="ApeFree.ApeForms.Core, Version=0.11.12.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ApeFree.ApeForms.Core.0.11.12.1-beta0412\lib\net461\ApeFree.ApeForms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ApeFree.ApeForms.Forms, Version=0.11.12.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ApeFree.ApeForms.Forms.0.11.12.1-beta0412\lib\net461\ApeFree.ApeForms.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="ApeFree.Cake2D, Version=0.0.5.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ApeFree.Cake2D.0.0.5.2-beta0205\lib\net45\ApeFree.Cake2D.dll</HintPath>
-    </Reference>
-    <Reference Include="STTech.CodePlus, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\STTech.CodePlus.1.6.5.1\lib\net45\STTech.CodePlus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,17 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\DriveBrowserView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\DriveBrowserView.Designer.cs">
-      <DependentUpon>DriveBrowserView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\ProcessManagerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ProcessManagerView.Designer.cs">
       <DependentUpon>ProcessManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RemoteDriveBrowserView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\RemoteScreenView.cs">
       <SubType>Component</SubType>
@@ -87,9 +69,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Views\DriveBrowserView.resx">
-      <DependentUpon>DriveBrowserView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MasterForm.resx">
       <DependentUpon>MasterForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,7 +85,6 @@
     <EmbeddedResource Include="Views\ProcessManagerView.resx">
       <DependentUpon>ProcessManagerView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,6 +99,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ApeFree.ApeDialogs\ApeFree.ApeDialogs\ApeFree.ApeDialogs.csproj">
+      <Project>{799e05d1-bc8b-4495-926b-11dfa4c57f4e}</Project>
+      <Name>ApeFree.ApeDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.ApeForms\ApeFree.ApeForms.Core\ApeFree.ApeForms.Core.csproj">
+      <Project>{29e9fe9e-c03a-4af6-8e9a-7a214be48c1a}</Project>
+      <Name>ApeFree.ApeForms.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.ApeForms\ApeFree.ApeForms.Forms\ApeFree.ApeForms.Forms.csproj">
+      <Project>{b59f294f-e074-47ab-a4ec-ca307b0aaded}</Project>
+      <Name>ApeFree.ApeForms.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc.Mqtt\ApeFree.ApeRpc.Mqtt.csproj">
       <Project>{BB923A7B-CE85-4229-9A71-723D48B19F38}</Project>
       <Name>ApeFree.ApeRpc.Mqtt</Name>
@@ -128,6 +118,14 @@
     <ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc\ApeFree.ApeRpc.csproj">
       <Project>{DC36964A-4762-44FC-A858-68FF0249E415}</Project>
       <Name>ApeFree.ApeRpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApeFree.Cake2D\ApeFree.Cake2D\ApeFree.Cake2D.csproj">
+      <Project>{066a98ca-3054-4e93-8b0f-03599973f077}</Project>
+      <Name>ApeFree.Cake2D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\STTech.CodePlus\STTech.CodePlus\STTech.CodePlus.csproj">
+      <Project>{c2281a1a-940c-4e2d-bb9b-a1a6465d1ae2}</Project>
+      <Name>STTech.CodePlus</Name>
     </ProjectReference>
     <ProjectReference Include="..\ApeFree.ApeDesk.Core\ApeFree.ApeDesk.Core.csproj">
       <Project>{3F922B67-B74D-45CF-95D4-28C155379F64}</Project>
