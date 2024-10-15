@@ -1,4 +1,5 @@
 ﻿using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
+using ApeFree.ApeDesk.Win.XMaster.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,22 +14,26 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages
 {
     public partial class RemoteScreenPage : UserControl, IPage
     {
+        private readonly GlobalSettings settings;
+
         public string PageTitle => "Remote Screen";
 
-        public Image PageIcon => null;
+        public Image PageIcon => Resources.Img_Desk;
 
         private RemoteScreenPage()
         {
             InitializeComponent();
         }
 
-        public RemoteScreenPage(ApeRpc.IService[] services) : this()
+        public RemoteScreenPage(ApeRpc.IService[] services, GlobalSettings settings) : this()
         {
             foreach (ApeRpc.IService service in services)
             {
-                var rsc = new RemoteScreenControl(service);
+                var rsc = new RemoteScreenControl(service, settings.GetSlaveSettings(service.ServiceName));
                 rsc.Parent = glp;
             }
+
+            this.settings = settings;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen
 {
     public partial class RemoteScreenControl : UserControl
     {
+        private readonly SlaveSettings settings;
 
         public override string Text { get => groupBox.Text; set => groupBox.Text = value; }
 
@@ -21,10 +22,11 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen
             InitializeComponent();
         }
 
-        public RemoteScreenControl(ApeRpc.IService service) : this()
+        public RemoteScreenControl(ApeRpc.IService service, SlaveSettings settings) : this()
         {
             screen.Bind(service);
             Text = service.ServiceName;
+            this.settings = settings;
         }
 
         private void screen_MouseEnter(object sender, EventArgs e)
