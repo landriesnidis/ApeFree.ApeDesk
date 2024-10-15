@@ -41,9 +41,11 @@ namespace ApeFree.ApeDesk.Core
         /// <summary>
         /// 获取文件目录
         /// </summary>
-        /// <param name="folderPath"></param>
+        /// <param name="folderPath">文件夹路径</param>
+        /// <param name="onlyFolder">是否查找文件夹</param>
+        /// <param name="searchPattern">与文件名匹配的搜索字符串</param>
         /// <returns></returns>
-        FileCatalogItem[] GetFileCatalog(string folderPath);
+        FileCatalogItem[] GetFileCatalog(string folderPath, bool onlyFolder = false, string searchPattern = "*");
 
         /// <summary>
         /// 文件删除
