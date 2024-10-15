@@ -47,6 +47,8 @@ namespace ApeFree.ApeDesk.Win.Slave
         {
             return new ServiceInitializeResult();
         }
+
+
     }
 
     public partial class WinControlledDevice
@@ -192,6 +194,11 @@ namespace ApeFree.ApeDesk.Win.Slave
 
         public void SaveFile(string path, byte[] bytes)
         {
+            var dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             File.WriteAllBytes(path, bytes);
         }
 
@@ -227,36 +234,45 @@ namespace ApeFree.ApeDesk.Win.Slave
             var items = new List<DriveItem>();
             foreach (var x in DriveInfo.GetDrives())
             {
+                // 忽略部分类型的驱动器
+                if (x.DriveType == DriveType.Network || x.DriveType == DriveType.Unknown || x.DriveType == DriveType.NoRootDirectory)
+                {
+                    continue;
+                }
+
                 try
                 {
                     var di = new DriveItem()
                     {
                         Name = x.Name,
-                        AvailableFreeSpace = x.AvailableFreeSpace,
-                        DriveFormat = x.DriveFormat,
+                        RootDirectory = x.RootDirectory.FullName,
+                        VolumeLabel = x.VolumeLabel,
                         DriveType = x.DriveType,
                         IsReady = x.IsReady,
-                        RootDirectory = x.RootDirectory.FullName,
+                        DriveFormat = x.DriveFormat,
                         TotalFreeSpace = x.TotalFreeSpace,
-                        VolumeLabel = x.VolumeLabel,
+                        AvailableFreeSpace = x.AvailableFreeSpace,
                     };
                     items.Add(di);
                 }
                 catch (Exception) { }
             }
-
             return items.ToArray();
         }
 
-        public FileCatalogItem[] GetFileCatalog(string folderPath)
+        public FileCatalogItem[] GetFileCatalog(string folderPath, bool onlyFolder = false, string searchPattern = "*")
         {
-            Console.WriteLine($"客户端 {RpcTerminal.GetRemoteCallingTerminalId()} 正在请求目录：{folderPath}");
+            // Console.WriteLine($"客户端 {RpcTerminal.GetRemoteCallingTerminalId()} 正在请求目录：{folderPath}");
 
             DirectoryInfo directory = new DirectoryInfo(folderPath);
             var dirItems = directory.GetDirectories().Select(x => new FileCatalogItem() { Name = x.Name, IsDirectory = true }).ToList();
-            var fileItems = directory.GetFiles().Select(x => new FileCatalogItem() { CreationTime = x.CreationTime, FileSize = x.Length, IsDirectory = false, Name = x.Name });
 
-            dirItems.AddRange(fileItems);
+            if (!onlyFolder)
+            {
+                var fileItems = directory.GetFiles(searchPattern).Select(x => new FileCatalogItem() { CreationTime = x.CreationTime, FileSize = x.Length, IsDirectory = false, Name = x.Name });
+                dirItems.AddRange(fileItems);
+            }
+
             return dirItems.ToArray();
         }
 

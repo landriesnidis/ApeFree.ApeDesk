@@ -191,7 +191,7 @@
             this.propertyGrid.Size = new System.Drawing.Size(309, 249);
             this.propertyGrid.TabIndex = 0;
             // 
-            // PubForm
+            // SlaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -199,7 +199,7 @@
             this.Controls.Add(this.gbSettings);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gbNetwork);
-            this.Name = "PubForm";
+            this.Name = "SlaveForm";
             this.Text = "受控端";
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
             this.gbNetwork.ResumeLayout(false);
