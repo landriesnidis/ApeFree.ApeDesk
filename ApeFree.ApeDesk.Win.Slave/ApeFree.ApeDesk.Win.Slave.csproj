@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogFileMonitor.cs" />
     <Compile Include="SlaveForm.cs">
       <SubType>Form</SubType>
     </Compile>

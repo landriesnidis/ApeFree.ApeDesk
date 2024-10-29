@@ -10,7 +10,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -209,7 +208,7 @@ namespace ApeFree.ApeDesk.Win.Slave
                 return File.ReadAllBytes(targetPath);
             }
 
-            using (var stream = File.OpenRead(targetPath))
+            using (var stream = new FileStream(targetPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var buffer = new byte[readLength];
                 stream.Position = startIndex;
@@ -572,4 +571,44 @@ namespace ApeFree.ApeDesk.Win.Slave
             }
         }
     }
+
+    public partial class WinControlledDevice
+    {
+        public List<LogFileMonitor> monitors = new List<LogFileMonitor>();
+
+        public event EventHandler<LogUpdatedEventArgs> LogUpdated;
+
+        public void AddFile(string filename)
+        {
+            if (monitors.Any(x => x.FilePath == filename))
+            {
+                return;
+            }
+
+            var m = new LogFileMonitor();
+            m.FilePath = filename;
+            m.Enable = true;
+            m.LogUpdated += Monitor_LogUpdated;
+            monitors.Add(m);
+        }
+
+        public void RemoveFile(string filename)
+        {
+            var m = monitors.FirstOrDefault(x => x.FilePath == filename);
+            if (m == null)
+            {
+                return;
+            }
+
+            m.LogUpdated -= Monitor_LogUpdated;
+            monitors.Remove(m);
+        }
+
+        private void Monitor_LogUpdated(object sender, LogFileMonitor.LogUpdatedEventArgs e)
+        {
+            var m = sender as LogFileMonitor;
+            LogUpdated?.Invoke(this, new LogUpdatedEventArgs(m.FilePath, e.Messages));
+        }
+    }
+
 }
