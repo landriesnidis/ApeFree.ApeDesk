@@ -2,6 +2,7 @@
 using ApeFree.ApeDesk.Win.XMaster.Pages;
 using ApeFree.ApeDesk.Win.XMaster.Pages.FileDistribution;
 using ApeFree.ApeDesk.Win.XMaster.Pages.ProcessGuard;
+using ApeFree.ApeDialogs;
 using ApeFree.ApeForms.Core.Controls;
 using ApeFree.ApeForms.Forms.Notifications;
 using ApeFree.ApeRpc;
@@ -30,6 +31,7 @@ namespace ApeFree.ApeDesk.Win.XMaster
 
         private IControlledDevice[] RemoteDevice { get; set; }
 
+        private static ApeFormsDialogProvider dialogProvider = new ApeFormsDialogProvider();
 
 
         public MainForm()
@@ -88,7 +90,7 @@ namespace ApeFree.ApeDesk.Win.XMaster
             SimpleButton btn = new SimpleButton();
             btn.Icon = page.PageIcon;
             btn.Text = page.PageTitle;
-            btn.Height = panelBottom.Height-10;
+            btn.Height = panelBottom.Height - 10;
             btn.Width = 150;
             btn.Parent = panelBottom;
             btn.Click += (s, e) => slideBox.Jump(pageId);

@@ -71,6 +71,18 @@
       <DependentUpon>FileDistributionPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\IPage.cs" />
+    <Compile Include="Pages\LogMonitor\LogMonitorItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\LogMonitor\LogMonitorItem.Designer.cs">
+      <DependentUpon>LogMonitorItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LogMonitor\LogMonitorPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\LogMonitor\LogMonitorPage.Designer.cs">
+      <DependentUpon>LogMonitorPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ProcessGuard\ProcessGuardItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\FileDistribution\FileDistributionPage.resx">
       <DependentUpon>FileDistributionPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\LogMonitor\LogMonitorItem.resx">
+      <DependentUpon>LogMonitorItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\LogMonitor\LogMonitorPage.resx">
+      <DependentUpon>LogMonitorPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ProcessGuard\ProcessGuardItem.resx">
       <DependentUpon>ProcessGuardItem.cs</DependentUpon>
