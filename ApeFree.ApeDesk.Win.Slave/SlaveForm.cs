@@ -1,4 +1,5 @@
-﻿using ApeFree.ApeRpc;
+﻿using ApeFree.ApeDesk.Core;
+using ApeFree.ApeRpc;
 using ApeFree.ApeRpc.Mqtt;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace ApeFree.ApeDesk.Win.Slave
         {
             hostInfo.Name = new Random().Next(1000,9999).ToString();
             Terminal = new RpcTerminal(hostInfo);
+            Terminal.ServiceAdapters.Add(new ServiceAdapter<IDeskModule>(x => x.ModuleName));
 
             addon = new MqttRpcTerminalAddon(Terminal, tbIP.Text, (int)nudPort.Value);
             Terminal.Addons.Add(addon);

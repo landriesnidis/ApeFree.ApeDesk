@@ -17,15 +17,11 @@ namespace ApeFree.ApeDesk.Win.Slave
 {
     public partial class WinControlledDevice : IControlledDevice, IDisposable
     {
-        public TerminalInfo TerminalInfo { get; set; }
-
-        public string ServiceName { get; }
-
-        public string[] Dependencies { get; set; }
+        public string ModuleName { get; }
 
         public WinControlledDevice(string serviceName)
         {
-            ServiceName = serviceName;
+            ModuleName = serviceName;
 
             screenTimer = new Timer();
             screenTimer.Interval = 50;
@@ -41,12 +37,6 @@ namespace ApeFree.ApeDesk.Win.Slave
         public void Dispose()
         {
         }
-
-        public ServiceInitializeResult ServiceInitialize(ServiceInitializeArgument args)
-        {
-            return new ServiceInitializeResult();
-        }
-
 
     }
 
@@ -610,5 +600,4 @@ namespace ApeFree.ApeDesk.Win.Slave
             LogUpdated?.Invoke(this, new LogUpdatedEventArgs(m.FilePath, e.Messages));
         }
     }
-
 }
