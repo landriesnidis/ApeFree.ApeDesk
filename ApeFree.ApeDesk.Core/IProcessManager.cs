@@ -3,7 +3,7 @@ using System;
 
 namespace ApeFree.ApeDesk.Core
 {
-    public interface IProcessManager : ApeRpc.IService
+    public interface IProcessManager : IDeskModule
     {
         void StartProcess(string path);
 

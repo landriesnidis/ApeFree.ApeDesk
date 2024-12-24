@@ -7,7 +7,7 @@ namespace ApeFree.ApeDesk.Core
     /// <summary>
     /// 驱动浏览器
     /// </summary>
-    public interface IDriveBrowser : ApeRpc.IService
+    public interface IDriveBrowser : IDeskModule
     {
         /// <summary>
         /// 文件是否存在

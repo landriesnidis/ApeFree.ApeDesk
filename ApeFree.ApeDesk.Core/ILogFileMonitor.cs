@@ -2,7 +2,7 @@
 
 namespace ApeFree.ApeDesk.Core
 {
-    public interface ILogFileMonitor : ApeRpc.IService
+    public interface ILogFileMonitor : IDeskModule
     {
         void AddFile(string filename);
         void RemoveFile(string filename);
