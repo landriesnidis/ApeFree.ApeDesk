@@ -1,4 +1,5 @@
-﻿using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
+﻿using ApeFree.ApeDesk.Core;
+using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
 using ApeFree.ApeDesk.Win.XMaster.Properties;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,11 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.ProcessGuard
             InitializeComponent();
         }
 
-        public ProcessGuardPage(ApeRpc.IService[] services, GlobalSettings settings) : this()
+        public ProcessGuardPage(IDeskModule[] modules, GlobalSettings settings) : this()
         {
-            foreach (ApeRpc.IService service in services)
+            foreach (var item in modules)
             {
-                var rsc = new ProcessGuardItem(service, settings.GetSlaveSettings(service.ServiceName));
+                var rsc = new ProcessGuardItem(item, settings.GetSlaveSettings(item.ModuleName));
                 rsc.Parent = glp;
                 Items.Add(rsc);
             }

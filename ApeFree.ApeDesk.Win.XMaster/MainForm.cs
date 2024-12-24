@@ -52,6 +52,7 @@ namespace ApeFree.ApeDesk.Win.XMaster
 
             hostInfo.Name = new Random().Next(10000, 99999).ToString();
             Terminal = new RpcTerminal(hostInfo);
+            Terminal.ServiceAdapters.Add(new ServiceAdapter<IDeskModule>(x => x.ModuleName));
 
             addon = new MqttRpcTerminalAddon(Terminal, "10.255.0.197", 1883);
             Terminal.Addons.Add(addon);
@@ -60,25 +61,12 @@ namespace ApeFree.ApeDesk.Win.XMaster
             var names = new string[] { "wcd", "S160", "CA1" };
             var devices = names.Select(x => Terminal.GetService<IControlledDevice>(x)).ToArray();
 
-            RemoteDevice = devices.AsParallel().Where(device =>
-            {
-                try
-                {
-                    var task = TaskExtension.Run(() => { _ = device.TerminalInfo; }, 1000);
-                    task.Wait();
-                    if (task.IsCompleted)
-                    {
-                        return true;
-                    }
-                }
-                catch (Exception) { }
-                return false;
-            }).ToArray();
+            RemoteDevice = devices.AsParallel().Where(device => TaskExtension.RunWithTimeout(() => { _ = device.GetDrives(); }, 1000)).ToArray();
 
             var errorDevice = devices.Except(RemoteDevice);
             if (errorDevice.Any())
             {
-                Toast.Show($"无法连接到远程服务 '{errorDevice.Select(x => x.ServiceName).Join(",")}'");
+                Toast.Show($"无法连接到远程服务 '{errorDevice.Select(x => x.ModuleName).Join(",")}'");
             }
         }
 

@@ -22,7 +22,8 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.LogMonitor
         /// </summary>
         public int MaxLines { get; set; } = 200;
 
-        public string ServiceName { get => labSerivceName.Text; set => labSerivceName.Text = value; }
+        public string ModuleName { get => labModuleName.Text; set => labModuleName.Text = value; }
+
         public string FileName { get => labFileName.Text; set => labFileName.Text = value; }
 
         public LogMonitorItem()

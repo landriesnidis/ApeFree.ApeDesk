@@ -1,4 +1,5 @@
-﻿using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
+﻿using ApeFree.ApeDesk.Core;
+using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
 using ApeFree.ApeDesk.Win.XMaster.Properties;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,11 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages
             InitializeComponent();
         }
 
-        public RemoteScreenPage(ApeRpc.IService[] services, GlobalSettings settings) : this()
+        public RemoteScreenPage(IDeskModule[] modules, GlobalSettings settings) : this()
         {
-            foreach (ApeRpc.IService service in services)
+            foreach (var item in modules)
             {
-                var rsc = new RemoteScreenControl(service, settings.GetSlaveSettings(service.ServiceName));
+                var rsc = new RemoteScreenControl(item, settings.GetSlaveSettings(item.ModuleName));
                 rsc.Parent = glp;
             }
 

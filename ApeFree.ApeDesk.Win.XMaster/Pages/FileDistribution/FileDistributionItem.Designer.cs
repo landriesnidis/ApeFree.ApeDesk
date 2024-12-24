@@ -32,7 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbFolderPath = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.labServiceName = new System.Windows.Forms.Label();
+            this.labModuleName = new System.Windows.Forms.Label();
             this.btnBrowser = new ApeFree.ApeForms.Core.Controls.SimpleButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,14 +84,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Folder Path:";
             // 
-            // labServiceName
+            // labModuleName
             // 
-            this.labServiceName.AutoSize = true;
-            this.labServiceName.Location = new System.Drawing.Point(28, 5);
-            this.labServiceName.Name = "labServiceName";
-            this.labServiceName.Size = new System.Drawing.Size(77, 12);
-            this.labServiceName.TabIndex = 2;
-            this.labServiceName.Text = "Service Name";
+            this.labModuleName.AutoSize = true;
+            this.labModuleName.Location = new System.Drawing.Point(28, 5);
+            this.labModuleName.Name = "labModuleName";
+            this.labModuleName.Size = new System.Drawing.Size(77, 12);
+            this.labModuleName.TabIndex = 2;
+            this.labModuleName.Text = "Module Name";
             // 
             // btnBrowser
             // 
@@ -122,7 +122,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.labServiceName);
+            this.Controls.Add(this.labModuleName);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cbEnable);
             this.Name = "FileDistributionItem";
@@ -141,7 +141,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox tbFolderPath;
-        private System.Windows.Forms.Label labServiceName;
+        private System.Windows.Forms.Label labModuleName;
         private ApeForms.Core.Controls.SimpleButton btnBrowser;
     }
 }

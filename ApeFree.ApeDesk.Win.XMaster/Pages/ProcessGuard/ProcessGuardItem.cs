@@ -35,9 +35,9 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.ProcessGuard
             InitializeComponent();
         }
 
-        public ProcessGuardItem(ApeRpc.IService service, SlaveSettings settings) : this()
+        public ProcessGuardItem(IDeskModule service, SlaveSettings settings) : this()
         {
-            Text = service.ServiceName;
+            Text = service.ModuleName;
             ProcessManager = service as IProcessManager;
             DriveBrowser = service as IDriveBrowser;
             this.settings = settings;

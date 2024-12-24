@@ -22,10 +22,10 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen
             InitializeComponent();
         }
 
-        public RemoteScreenControl(ApeRpc.IService service, SlaveSettings settings) : this()
+        public RemoteScreenControl(IDeskModule service, SlaveSettings settings) : this()
         {
             screen.Bind(service);
-            Text = service.ServiceName;
+            Text = service.ModuleName;
             this.settings = settings;
         }
 

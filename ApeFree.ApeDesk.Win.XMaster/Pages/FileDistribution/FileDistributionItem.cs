@@ -21,7 +21,7 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.FileDistribution
 
         private readonly SlaveSettings settings;
 
-        public override string Text { get => labServiceName.Text; set => labServiceName.Text = value; }
+        public override string Text { get => labModuleName.Text; set => labModuleName.Text = value; }
 
         /// <summary>
         /// 文件夹路径
@@ -40,10 +40,10 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.FileDistribution
             InitializeComponent();
         }
 
-        public FileDistributionItem(ApeRpc.IService service, SlaveSettings settings) : this()
+        public FileDistributionItem(IDeskModule module, SlaveSettings settings) : this()
         {
-            Text = service.ServiceName;
-            DriveBrowser = service as IDriveBrowser;
+            Text = module.ModuleName;
+            DriveBrowser = module as IDriveBrowser;
             this.settings = settings;
 
             FolderPath = settings.FileDistributionPath;

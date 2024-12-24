@@ -33,11 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApeFree.DataStore, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ApeFree.DataStore.1.0.6\lib\net45\ApeFree.DataStore.dll</HintPath>
+    <Reference Include="ApeFree.DataStore, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ApeFree.DataStore.2.0.0-alpha1209\lib\net452\ApeFree.DataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="ApeFree.Protocols.Json, Version=0.0.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ApeFree.Protocols.Json.0.0.1.8-beta1022\lib\net452\ApeFree.Protocols.Json.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="STTech.CodePlus, Version=1.7.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\STTech.CodePlus.1.7.2.4\lib\net45\STTech.CodePlus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -195,17 +201,9 @@
       <Project>{066a98ca-3054-4e93-8b0f-03599973f077}</Project>
       <Name>ApeFree.Cake2D</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApeFree.Protocols\ApeFree.Protocols.Json\ApeFree.Protocols.Json.csproj">
-      <Project>{f8be276e-945d-4abf-8570-7524467d07b7}</Project>
-      <Name>ApeFree.Protocols.Json</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ApeFree.Reflection\ApeFree.Reflection.Rpc\ApeFree.Reflection.Rpc.csproj">
       <Project>{ce3029fa-c886-4402-9177-d50368c1f4e4}</Project>
       <Name>ApeFree.Reflection.Rpc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\STTech.CodePlus\STTech.CodePlus\STTech.CodePlus.csproj">
-      <Project>{c2281a1a-940c-4e2d-bb9b-a1a6465d1ae2}</Project>
-      <Name>STTech.CodePlus</Name>
     </ProjectReference>
     <ProjectReference Include="..\ApeFree.ApeDesk.Core\ApeFree.ApeDesk.Core.csproj">
       <Project>{3f922b67-b74d-45cf-95d4-28c155379f64}</Project>

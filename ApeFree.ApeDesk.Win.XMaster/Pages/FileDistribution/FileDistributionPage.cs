@@ -1,4 +1,5 @@
-﻿using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
+﻿using ApeFree.ApeDesk.Core;
+using ApeFree.ApeDesk.Win.XMaster.Pages.RemoteScreen;
 using ApeFree.ApeDesk.Win.XMaster.Properties;
 using ApeFree.ApeForms.Forms.Notifications;
 using System;
@@ -29,11 +30,11 @@ namespace ApeFree.ApeDesk.Win.XMaster.Pages.FileDistribution
             InitializeComponent();
         }
 
-        public FileDistributionPage(ApeRpc.IService[] services, GlobalSettings settings) : this()
+        public FileDistributionPage(IDeskModule[] modules, GlobalSettings settings) : this()
         {
-            foreach (ApeRpc.IService service in services)
+            foreach (var item in modules)
             {
-                var fdi = new FileDistributionItem(service, settings.GetSlaveSettings(service.ServiceName));
+                var fdi = new FileDistributionItem(item, settings.GetSlaveSettings(item.ModuleName));
                 fdi.Parent = glp;
                 Items.Add(fdi);
             }

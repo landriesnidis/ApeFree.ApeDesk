@@ -30,7 +30,7 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbLogContent = new System.Windows.Forms.RichTextBox();
-            this.labSerivceName = new System.Windows.Forms.Label();
+            this.labModuleName = new System.Windows.Forms.Label();
             this.labFileName = new System.Windows.Forms.Label();
             this.lstLog = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
@@ -64,17 +64,17 @@
             this.tbLogContent.TabIndex = 0;
             this.tbLogContent.Text = "";
             // 
-            // labSerivceName
+            // labModuleName
             // 
-            this.labSerivceName.BackColor = System.Drawing.Color.Gainsboro;
-            this.labSerivceName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labSerivceName.Font = new System.Drawing.Font("黑体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labSerivceName.Location = new System.Drawing.Point(0, 0);
-            this.labSerivceName.Name = "labSerivceName";
-            this.labSerivceName.Size = new System.Drawing.Size(642, 20);
-            this.labSerivceName.TabIndex = 1;
-            this.labSerivceName.Text = "Service Name";
-            this.labSerivceName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labModuleName.BackColor = System.Drawing.Color.Gainsboro;
+            this.labModuleName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labModuleName.Font = new System.Drawing.Font("黑体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labModuleName.Location = new System.Drawing.Point(0, 0);
+            this.labModuleName.Name = "labModuleName";
+            this.labModuleName.Size = new System.Drawing.Size(642, 20);
+            this.labModuleName.TabIndex = 1;
+            this.labModuleName.Text = "Module Name";
+            this.labModuleName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labFileName
             // 
@@ -107,7 +107,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.lstLog);
             this.Controls.Add(this.labFileName);
-            this.Controls.Add(this.labSerivceName);
+            this.Controls.Add(this.labModuleName);
             this.Controls.Add(this.groupBox1);
             this.Name = "LogMonitorItem";
             this.Size = new System.Drawing.Size(942, 278);
@@ -120,7 +120,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox tbLogContent;
-        private System.Windows.Forms.Label labSerivceName;
+        private System.Windows.Forms.Label labModuleName;
         private System.Windows.Forms.Label labFileName;
         private System.Windows.Forms.ListBox lstLog;
     }
