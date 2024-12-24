@@ -20,7 +20,7 @@ namespace ApeFree.ApeDesk.Win.Master
         /// </summary>
         public IDriveBrowser DriveBrowser { get; private set; }
 
-        public virtual void Bind(IService service)
+        public virtual void Bind(object service)
         {
             if (service is IDriveBrowser driveBrowser)
             {
@@ -199,7 +199,7 @@ namespace ApeFree.ApeDesk.Win.Master
             this.listView.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnFileDragEnter);
         }
 
-        public override void Bind(IService service)
+        public override void Bind(object service)
         {
             base.Bind(service);
 

@@ -24,7 +24,7 @@ namespace ApeFree.ApeDesk.Win.Master.Views
             InitializeComponent();
         }
 
-        public void Bind(IService service)
+        public void Bind(object service)
         {
             if (service is IProcessManager processManager)
             {

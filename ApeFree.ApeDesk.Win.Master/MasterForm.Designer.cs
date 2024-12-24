@@ -30,7 +30,7 @@
         {
             this.gbNetwork = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbServiceName = new System.Windows.Forms.TextBox();
+            this.tbModuleName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.tbIP = new System.Windows.Forms.TextBox();
@@ -58,7 +58,7 @@
             // gbNetwork
             // 
             this.gbNetwork.Controls.Add(this.label2);
-            this.gbNetwork.Controls.Add(this.tbServiceName);
+            this.gbNetwork.Controls.Add(this.tbModuleName);
             this.gbNetwork.Controls.Add(this.label3);
             this.gbNetwork.Controls.Add(this.btnConnect);
             this.gbNetwork.Controls.Add(this.tbIP);
@@ -80,16 +80,16 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "Service Name";
             // 
-            // tbServiceName
+            // tbModuleName
             // 
-            this.tbServiceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbModuleName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbServiceName.Location = new System.Drawing.Point(97, 70);
-            this.tbServiceName.Name = "tbServiceName";
-            this.tbServiceName.Size = new System.Drawing.Size(131, 21);
-            this.tbServiceName.TabIndex = 17;
-            this.tbServiceName.Text = "wcd";
-            this.tbServiceName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbModuleName.Location = new System.Drawing.Point(97, 70);
+            this.tbModuleName.Name = "tbModuleName";
+            this.tbModuleName.Size = new System.Drawing.Size(131, 21);
+            this.tbModuleName.TabIndex = 17;
+            this.tbModuleName.Text = "wcd";
+            this.tbModuleName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
@@ -282,7 +282,7 @@
         private RemoteScreenView picScreen;
         private System.Windows.Forms.GroupBox gbNetwork;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbServiceName;
+        private System.Windows.Forms.TextBox tbModuleName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.TextBox tbIP;

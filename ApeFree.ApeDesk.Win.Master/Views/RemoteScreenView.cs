@@ -43,7 +43,7 @@ namespace ApeFree.ApeDesk.Win.Master
             });
         }
 
-        public void Bind(IService service)
+        public void Bind(object service)
         {
             if (service is IScreenController screenController)
             {

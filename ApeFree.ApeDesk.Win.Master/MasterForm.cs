@@ -43,12 +43,13 @@ namespace ApeFree.ApeDesk.Win.Master
 
             hostInfo.Name = new Random().Next(10000, 99999).ToString();
             Terminal = new RpcTerminal(hostInfo);
+            Terminal.ServiceAdapters.Add(new ServiceAdapter<IDeskModule>(x => x.ModuleName));
 
             addon = new MqttRpcTerminalAddon(Terminal, tbIP.Text, (int)nudPort.Value);
             Terminal.Addons.Add(addon);
 
             // 创建远程设备的RPC代理对象
-            RemoteDevice = Terminal.GetService<IControlledDevice>(tbServiceName.Text);
+            RemoteDevice = Terminal.GetService<IControlledDevice>(tbModuleName.Text);
 
             // 绑定屏幕控制器
             picScreen.Bind(RemoteDevice);
