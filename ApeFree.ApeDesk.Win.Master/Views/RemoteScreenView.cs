@@ -63,13 +63,16 @@ namespace ApeFree.ApeDesk.Win.Master
         {
             frameIndex++;
 
-            using (MemoryStream ms = new MemoryStream(e.ImageData))
+            // 解压图像数据
+            var decBytes = e.ImageData.Decompress(CompressionFormat.Deflate);
+
+            using (MemoryStream ms = new MemoryStream(decBytes))
             {
                 var image = (Bitmap)Image.FromStream(ms);
                 screenUpdateQueue.Join(image);
             }
 
-            if (frameIndex > ScreenSynchronizer.ContinuousActiveFrame * 0.8)
+            if (frameIndex > ScreenSynchronizer.ContinuousActiveFrame * 0.5)
             {
                 RemoteScreenCaptrueRefresh();
                 frameIndex = 0;
@@ -97,14 +100,14 @@ namespace ApeFree.ApeDesk.Win.Master
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            MouseLocation = GetImageCoordinates(e.Location);
+            MouseLocation = this.GetImageCoordinate(e.Location);
 
             if (MouseLocation == EmptyMousePoint)
             {
                 return;
             }
 
-            if (MouseButtons == MouseButtons.Left)
+            if (MouseButtons != MouseButtons.None)
             {
                 ScreenController.SetCursorPosition(MouseLocation);
             }
@@ -118,6 +121,8 @@ namespace ApeFree.ApeDesk.Win.Master
             {
                 return;
             }
+
+            ScreenController.SetCursorPosition(MouseLocation);
 
             switch (e.Button)
             {
@@ -143,6 +148,8 @@ namespace ApeFree.ApeDesk.Win.Master
                 return;
             }
 
+            ScreenController.SetCursorPosition(MouseLocation);
+
             switch (e.Button)
             {
                 case MouseButtons.Left:
@@ -158,38 +165,12 @@ namespace ApeFree.ApeDesk.Win.Master
             }
         }
 
-        private Point GetImageCoordinates(Point mousePoint)
+        protected override void OnMouseWheel(MouseEventArgs e)
         {
-            Image image = this.Image;
-            if (image == null)
-            {
-                return EmptyMousePoint;
-            }
+            base.OnMouseWheel(e);
 
-            // 获取 PictureBox 的大小
-            Size boxSize = this.Size;
-
-            // 计算图像的显示比例
-            float scaleX = (float)boxSize.Width / image.Width;
-            float scaleY = (float)boxSize.Height / image.Height;
-
-            float scale = Math.Min(scaleX, scaleY);
-
-            // 计算图像在 PictureBox 中的偏移量
-            int offsetX = (boxSize.Width - (int)(image.Width * scale)) / 2;
-            int offsetY = (boxSize.Height - (int)(image.Height * scale)) / 2;
-
-            if (mousePoint.X < offsetX || mousePoint.X > offsetX + image.Width * scale ||
-                mousePoint.Y < offsetY || mousePoint.Y > offsetY + image.Height * scale)
-            {
-                return EmptyMousePoint;
-            }
-
-            // 计算鼠标在真实图像上的坐标
-            int imageX = (int)((mousePoint.X - offsetX) / scale / ScreenScaleFactor);
-            int imageY = (int)((mousePoint.Y - offsetY) / scale / ScreenScaleFactor);
-
-            return new Point(imageX, imageY);
+            ScreenController.SetCursorPosition(MouseLocation);
+            ScreenController.ScrollWheel(MouseLocation, e.Delta);
         }
     }
 }

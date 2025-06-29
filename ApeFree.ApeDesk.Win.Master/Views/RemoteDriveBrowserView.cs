@@ -28,46 +28,45 @@ namespace ApeFree.ApeDesk.Win.Master
             }
         }
 
-        public override void OpenFolder(string path)
+        public override bool OpenFolder(string path)
         {
-            Task.Run(() =>
+            var items = DriveBrowser.GetFileCatalog(path, DisplayItemType == DisplayItemType.OnlyFolder, SearchPattern);
+
+            var lvis = items.Select(item =>
             {
-                var items = DriveBrowser.GetFileCatalog(path, DisplayItemType == DisplayItemType.OnlyFolder, SearchPattern);
+                ListViewItem lvi = new ListViewItem(item.Name);
 
-                var lvis = items.Select(item =>
+                if (item.IsDirectory)
                 {
-                    ListViewItem lvi = new ListViewItem(item.Name);
-
-                    if (item.IsDirectory)
-                    {
-                        lvi.ImageKey = "Folder";
-                    }
-                    else
-                    {
-                        lvi.SubItems.Add(item.FileSize.ToString());
-                        lvi.SubItems.Add(item.CreationTime.ToString());
-                        lvi.ImageKey = "File";
-                    }
-                    lvi.Tag = item;
-                    return lvi;
-                }).ToArray();
-
-                listView.ModifyInUI(() =>
+                    lvi.ImageKey = "Folder";
+                }
+                else
                 {
-                    tbPath.Text = path;
+                    lvi.SubItems.Add(item.FileSize.ToString());
+                    lvi.SubItems.Add(item.CreationTime.ToString());
+                    lvi.ImageKey = "File";
+                }
+                lvi.Tag = item;
+                return lvi;
+            }).ToArray();
 
-                    if (!HistoryStack.Any() || HistoryStack.Peek() != path)
-                    {
-                        HistoryStack.Push(path);
-                    }
+            listView.ModifyInUI(() =>
+            {
+                tbPath.Text = path;
 
-                    listView.Items.Clear();
-                    if (lvis.Any())
-                    {
-                        listView.Items.AddRange(lvis);
-                    }
-                });
+                if (!HistoryStack.Any() || HistoryStack.Peek() != path)
+                {
+                    HistoryStack.Push(path);
+                }
+
+                listView.Items.Clear();
+                if (lvis.Any())
+                {
+                    listView.Items.AddRange(lvis);
+                }
             });
+
+            return true;
         }
 
         protected override void OnDriveButtonClicked(object sender, EventArgs e)
@@ -170,15 +169,18 @@ namespace ApeFree.ApeDesk.Win.Master
                 File.Delete(localFilePath);
             }
 
-            var packSize = 1024 * 512;
+            var packSize = 1024 * 512; // 默认单包数据大小为512KB
             var packCount = (int)Math.Ceiling(size / (float)packSize);
 
             using (var fs = File.OpenWrite(localFilePath))
             {
                 for (int i = 0; i < packCount; i++)
                 {
-                    var data = DriveBrowser.ReadFile(remoteFilePath, i * packSize, packSize);
+                    // 双边对数据包进行压缩和解压缩
+                    var compressedData = DriveBrowser.ReadFile(remoteFilePath, i * packSize, packSize);
+                    var data = compressedData.Decompress(CompressionFormat.Deflate);
                     fs.Write(data, 0, data.Length);
+                    //Console.WriteLine($"文件分包[{i + 1}/{packCount}] 传输大小 {compressedData.Length}，解压大小{data.Length}");
                 }
             }
         }
@@ -219,7 +221,10 @@ namespace ApeFree.ApeDesk.Win.Master
             var localFilePath = $"{localFolderPath}\\{item.Name}";
             Directory.CreateDirectory(localFolderPath);
 
-            DownloadFile(remoteFilePath, localFilePath, (int)item.FileSize);
+            new Action(() => DownloadFile(remoteFilePath, localFilePath, (int)item.FileSize)).InvokeAndTime(out var time);
+            Console.WriteLine($"文件 '{item.Name}' 下载完成，文件总大小 {item.FileSize / 1024f / 1024f:0.00} MB ,耗时：{time / 1000f:0.00} 秒");
+            var speed = item.FileSize / (time / 1000f) / 1024f / 1024f; // MB/s
+            Console.WriteLine($"下载速度：{speed:0.00} MB/s");
 
             Notification.Builder.ShowImageTextNotification(s =>
             {
