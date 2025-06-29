@@ -35,9 +35,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="STTech.CodePlus, Version=1.7.2.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\STTech.CodePlus.1.7.2.4\lib\net45\STTech.CodePlus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -74,7 +71,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -96,6 +92,10 @@
     <ProjectReference Include="..\..\ApeFree.ApeRpc\ApeFree.ApeRpc\ApeFree.ApeRpc.csproj">
       <Project>{DC36964A-4762-44FC-A858-68FF0249E415}</Project>
       <Name>ApeFree.ApeRpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\STTech.CodePlus\STTech.CodePlus\STTech.CodePlus.csproj">
+      <Project>{c2281a1a-940c-4e2d-bb9b-a1a6465d1ae2}</Project>
+      <Name>STTech.CodePlus</Name>
     </ProjectReference>
     <ProjectReference Include="..\ApeFree.ApeDesk.Core\ApeFree.ApeDesk.Core.csproj">
       <Project>{3F922B67-B74D-45CF-95D4-28C155379F64}</Project>

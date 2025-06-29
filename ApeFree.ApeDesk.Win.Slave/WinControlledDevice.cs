@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -58,9 +59,11 @@ namespace ApeFree.ApeDesk.Win.Slave
             }
         }
 
-        public float ScaleFactor { get; set; } = 0.2f;
+        public float ScaleFactor { get; set; } = 1f;
 
         public int ContinuousActiveFrame { get; } = 5;
+
+        public ImageFormat ScreenImageFormat { get; set; } = ImageFormat.Bmp;
 
         //[RpcEvent]
         public event EventHandler<ScreenUpdatedEventArgs> ScreenUpdated;
@@ -75,7 +78,7 @@ namespace ApeFree.ApeDesk.Win.Slave
         {
             using (var bmp = ScreenImageUtils.CaptureScreenFast())
             {
-                return bmp.ToBytes(ImageFormat.Png);
+                return bmp.ToBytes(ImageFormat.Bmp).Compress(format: CompressionFormat.Deflate);
             }
         }
 
@@ -90,7 +93,7 @@ namespace ApeFree.ApeDesk.Win.Slave
 
             var screenImage = ScreenImageUtils.CaptureScreenFast();
 
-            if (ScreenImageUtils.AreBitmapsEqual(_lastScreenImage, screenImage, 10))
+            if (ScreenImageUtils.AreBitmapsEqual(_lastScreenImage, screenImage, 15))
             {
                 screenImage.Dispose();
             }
@@ -99,21 +102,23 @@ namespace ApeFree.ApeDesk.Win.Slave
                 _lastScreenImage?.Dispose();
                 _lastScreenImage = screenImage;
 
-                // 是否压缩图像
+                // 是否缩放图像
                 if (ScaleFactor != 1)
                 {
                     var miniBmp = ScreenImageUtils.ScaleBitmap(screenImage, ScaleFactor);
-                    var bytes = miniBmp.ToBytes(ImageFormat.Png);
+                    var bytes = miniBmp.ToBytes(ScreenImageFormat).Compress(format: CompressionFormat.Deflate);
                     screenUpdateQueue.Join(bytes);
                     miniBmp.Dispose();
                 }
                 else
                 {
-                    var bytes = screenImage.ToBytes(ImageFormat.Png);
+                    var bytes = screenImage.ToBytes(ScreenImageFormat).Compress(format: CompressionFormat.Deflate);
                     screenUpdateQueue.Join(bytes);
+                    Console.WriteLine($"ImageSize: {bytes.Length / 1024f:0.00} KB");
                 }
-                screenCaptureCount--;
+
                 Console.WriteLine($"frame {screenCaptureCount}/{ContinuousActiveFrame}");
+                screenCaptureCount--;
             }
 
             screenTimer.Enabled = screenCaptureCount > 0;
@@ -198,23 +203,22 @@ namespace ApeFree.ApeDesk.Win.Slave
                 return File.ReadAllBytes(targetPath);
             }
 
+            var buffer = new byte[readLength];
+            var actLen = 0;
             using (var stream = new FileStream(targetPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                var buffer = new byte[readLength];
                 stream.Position = startIndex;
-                var actLen = stream.Read(buffer, 0, buffer.Length);
+                actLen = stream.Read(buffer, 0, buffer.Length);
+            }
 
-                if (actLen == readLength)
-                {
-                    return buffer;
-                }
-                else
-                {
-                    var actData = new byte[actLen];
-                    Array.Copy(buffer, actData, actData.Length);
-
-                    return actData;
-                }
+            if (actLen == 0)
+            {
+                return Array.Empty<byte>();
+            }
+            else
+            {
+                var compressedData = buffer.Compress(0, actLen, CompressionLevel.Fastest, CompressionFormat.Deflate);
+                return compressedData;
             }
         }
 
@@ -444,7 +448,7 @@ namespace ApeFree.ApeDesk.Win.Slave
         [DllImport("user32.dll")]
         static extern int ReleaseDC(IntPtr hWnd, IntPtr hDc);
 
-        public static Bitmap CaptureScreenFast(PixelFormat pixelFormat = PixelFormat.Format24bppRgb)
+        public static Bitmap CaptureScreenFast(PixelFormat pixelFormat = PixelFormat.Format16bppRgb555)
         {
             IntPtr desktopWnd = GetDesktopWindow();
             IntPtr desktopDC = GetWindowDC(desktopWnd);
@@ -490,62 +494,69 @@ namespace ApeFree.ApeDesk.Win.Slave
         /// <returns></returns>
         public static bool AreBitmapsEqual(Bitmap bmp1, Bitmap bmp2, int skipPixels = 1)
         {
-            if (bmp1 == bmp2)
+            try
             {
-                return true;
-            }
+                if (bmp1 == bmp2)
+                {
+                    return true;
+                }
 
-            if (bmp1 == null || bmp2 == null)
-            {
-                return false;
-            }
+                if (bmp1 == null || bmp2 == null)
+                {
+                    return false;
+                }
 
-            if (bmp1.Width != bmp2.Width || bmp1.Height != bmp2.Height)
-            {
-                return false;
-            }
+                if (bmp1.Width != bmp2.Width || bmp1.Height != bmp2.Height)
+                {
+                    return false;
+                }
 
-            BitmapData data1 = bmp1.LockBits(new Rectangle(0, 0, bmp1.Width, bmp1.Height), ImageLockMode.ReadOnly, bmp1.PixelFormat);
-            BitmapData data2 = bmp2.LockBits(new Rectangle(0, 0, bmp2.Width, bmp2.Height), ImageLockMode.ReadOnly, bmp2.PixelFormat);
+                BitmapData data1 = bmp1.LockBits(new Rectangle(0, 0, bmp1.Width, bmp1.Height), ImageLockMode.ReadOnly, bmp1.PixelFormat);
+                BitmapData data2 = bmp2.LockBits(new Rectangle(0, 0, bmp2.Width, bmp2.Height), ImageLockMode.ReadOnly, bmp2.PixelFormat);
 
-            int bytesPerPixel1 = Image.GetPixelFormatSize(bmp1.PixelFormat) / 8;
-            int bytesPerPixel2 = Image.GetPixelFormatSize(bmp2.PixelFormat) / 8;
+                int bytesPerPixel1 = Image.GetPixelFormatSize(bmp1.PixelFormat) / 8;
+                int bytesPerPixel2 = Image.GetPixelFormatSize(bmp2.PixelFormat) / 8;
 
-            if (bytesPerPixel1 != bytesPerPixel2)
-            {
+                if (bytesPerPixel1 != bytesPerPixel2)
+                {
+                    bmp1.UnlockBits(data1);
+                    bmp2.UnlockBits(data2);
+                    return false;
+                }
+
+                int stride1 = data1.Stride;
+                int stride2 = data2.Stride;
+
+                unsafe
+                {
+                    byte* ptr1 = (byte*)data1.Scan0;
+                    byte* ptr2 = (byte*)data2.Scan0;
+
+                    for (int y = 0; y < bmp1.Height; y += skipPixels)
+                    {
+                        for (int x = 0; x < bmp1.Width * bytesPerPixel1; x += skipPixels * bytesPerPixel1)
+                        {
+                            if (ptr1[x] != ptr2[x])
+                            {
+                                bmp1.UnlockBits(data1);
+                                bmp2.UnlockBits(data2);
+                                return false;
+                            }
+                        }
+                        ptr1 += stride1 * skipPixels;
+                        ptr2 += stride2 * skipPixels;
+                    }
+                }
+
                 bmp1.UnlockBits(data1);
                 bmp2.UnlockBits(data2);
+
+                return true;
+            }
+            catch (Exception)
+            {
                 return false;
             }
-
-            int stride1 = data1.Stride;
-            int stride2 = data2.Stride;
-
-            unsafe
-            {
-                byte* ptr1 = (byte*)data1.Scan0;
-                byte* ptr2 = (byte*)data2.Scan0;
-
-                for (int y = 0; y < bmp1.Height; y += skipPixels)
-                {
-                    for (int x = 0; x < bmp1.Width * bytesPerPixel1; x += skipPixels * bytesPerPixel1)
-                    {
-                        if (ptr1[x] != ptr2[x])
-                        {
-                            bmp1.UnlockBits(data1);
-                            bmp2.UnlockBits(data2);
-                            return false;
-                        }
-                    }
-                    ptr1 += stride1 * skipPixels;
-                    ptr2 += stride2 * skipPixels;
-                }
-            }
-
-            bmp1.UnlockBits(data1);
-            bmp2.UnlockBits(data2);
-
-            return true;
         }
     }
 
